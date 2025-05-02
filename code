@@ -1,0 +1,43 @@
+from flask import Flask, render_template, request, redirect, url_for, session
+
+app = Flask(__name__)
+app.secret_key = 'your_secret_key'
+
+def caesar_cipher(text, shift, mode):
+    result = ""
+    for char in text:
+        if char.isalpha():
+            base = ord('A') if char.isupper() else ord('a')
+            offset = shift if mode == 'encrypt' else -shift
+            result += chr((ord(char) - base + offset) % 26 + base)
+        else:
+            result += char
+    return result
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        session['text'] = request.form['text']
+        session['shift'] = request.form['shift']
+        session['mode'] = request.form['mode']
+        session['result'] = caesar_cipher(session['text'], int(session['shift']), session['mode'])
+        return redirect(url_for('index'))
+
+    # Check if the result should be preserved (clicked)
+    stay = request.args.get('stay') == 'true'
+
+    if stay:
+        text = session.get('text', '')
+        shift = session.get('shift', '')
+        mode = session.get('mode', 'encrypt')
+        result = session.get('result', '')
+    else:
+        text = session.pop('text', '')
+        shift = session.pop('shift', '')
+        mode = session.pop('mode', 'encrypt')
+        result = session.pop('result', '')
+
+    return render_template('index.html', text=text, shift=shift, mode=mode, result=result)
+
+if __name__ == '__main__':
+    app.run(debug=True)
