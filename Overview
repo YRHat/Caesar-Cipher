@@ -1,3 +1,42 @@
 🔐 Caesar Cipher Web App – Encrypt & Decrypt Messages
 📌 Project Overview
 This project implements a Caesar Cipher encryption and decryption tool using Flask, a lightweight Python web framework. Users can enter a message, select encryption or decryption mode, and provide a shift value to encode or decode the text via a simple and interactive web interface.
+🛠️ Technologies Used
+Python 3
+
+Flask
+
+HTML + CSS (via templates/index.html)
+
+💡 Features
+Encrypt or decrypt any input text
+
+User-friendly web interface
+
+Handles both uppercase and lowercase letters
+
+Non-alphabetic characters remain unchanged
+
+Session-based state retention
+
+🧪 How It Works
+The Caesar Cipher works by shifting each letter in the alphabet by a user-defined number:
+
+Encryption shifts letters forward
+
+Decryption shifts them backward
+
+Wrap-around is handled using modulo arithmetic
+
+Example:
+
+Text: HELLO, Shift: 3, Encrypted: KHOOR
+
+🧠 Learning Outcomes
+Applied basic cryptography using Caesar Cipher
+
+Built a secure, stateful web app using Flask
+
+Managed web sessions and form handling
+
+Enhanced Python logic for real-world input
